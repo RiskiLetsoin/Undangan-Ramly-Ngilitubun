@@ -315,6 +315,47 @@ $("#eventTime").textContent=C.event.time;
 $("#mapLink").href=C.event.map;
 
 /* Buka undangan */
+let autoScrollFrame=0;
+let autoScrollLastTime=0;
+let autoScrollPosition=0;
+let autoScrollActive=false;
+let previousScrollBehavior="";
+function stopAutoScroll(){
+ if(!autoScrollActive)return;
+ cancelAnimationFrame(autoScrollFrame);
+ autoScrollFrame=0;
+ autoScrollActive=false;
+ autoScrollLastTime=0;
+ document.documentElement.style.scrollBehavior=previousScrollBehavior;
+}
+function continueAutoScroll(time){
+ if(!autoScrollActive)return;
+ if(!autoScrollLastTime)autoScrollLastTime=time;
+ const elapsed=Math.min(time-autoScrollLastTime,40);
+ autoScrollLastTime=time;
+ const maxScroll=document.documentElement.scrollHeight-innerHeight;
+ if(autoScrollPosition>=maxScroll){
+  stopAutoScroll();
+  return;
+ }
+ autoScrollPosition=Math.min(autoScrollPosition+elapsed*.018,maxScroll);
+ window.scrollTo(0,autoScrollPosition);
+ autoScrollFrame=requestAnimationFrame(continueAutoScroll);
+}
+function startAutoScroll(){
+ const reducedMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ if(!reducedMotion&&scrollY<document.documentElement.scrollHeight-innerHeight){
+  autoScrollActive=true;
+  autoScrollPosition=scrollY;
+  previousScrollBehavior=document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior="auto";
+  autoScrollLastTime=0;
+  autoScrollFrame=requestAnimationFrame(continueAutoScroll);
+ }
+}
+["wheel","touchstart","pointerdown","keydown"].forEach(type=>
+ addEventListener(type,stopAutoScroll,{passive:true})
+);
 $("#openBtn").onclick=()=>{
  if(C.music)playMusic();
  document.body.classList.add("open");
@@ -322,6 +363,7 @@ $("#openBtn").onclick=()=>{
  const coverDuration=reducedMotion?50:950;
  setTimeout(()=>{document.body.classList.remove("locked");scrollTo(0,0)},coverDuration);
  setTimeout(()=>{$("#cover").style.display="none";document.querySelectorAll(".pl,.pr,.pc").forEach(e=>e.style.willChange="auto")},coverDuration+100);
+ setTimeout(startAutoScroll,coverDuration+350);
 };
 if(C.music)$("#mus").style.display="block";
 
