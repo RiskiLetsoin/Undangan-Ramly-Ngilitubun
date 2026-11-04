@@ -36,13 +36,13 @@ body.locked{overflow:hidden;height:100vh;height:100svh}
 .p::before{content:"";position:absolute;inset:20px;pointer-events:none;z-index:2;opacity:.5}
 .pl,.pr{background:linear-gradient(90deg,#0b1930,#142b50);box-shadow:inset 0 0 28px rgba(0,0,0,.24)}
 .pl,.pr{will-change:transform}
-.pl{transform-origin:left center;transition:transform 1.8s cubic-bezier(.65,0,.25,1)}
-.pr{transform-origin:right center;transition:transform 1.8s cubic-bezier(.65,0,.25,1)}
+.pl{transform-origin:left center;transition:transform .85s cubic-bezier(.65,0,.25,1)}
+.pr{transform-origin:right center;transition:transform .85s cubic-bezier(.65,0,.25,1)}
 .pl::before,.pr::before{inset:12px;border:1px solid rgba(220,190,126,.36);opacity:1}
-.pc{display:flex;align-items:center;justify-content:center;text-align:center;padding:28px 18px;min-height:100vh;min-height:100svh;background:radial-gradient(ellipse at 50% 34%,rgba(55,83,128,.72),transparent 56%),radial-gradient(circle at 18% 18%,rgba(226,191,119,.13),transparent 19%),radial-gradient(circle at 84% 78%,rgba(226,191,119,.1),transparent 21%),linear-gradient(145deg,#142c53,#0c1b35 74%);will-change:opacity,transform;transition:opacity 1.2s ease .4s,transform 1.8s cubic-bezier(.65,0,.25,1)}
+.pc{display:flex;align-items:center;justify-content:center;text-align:center;padding:28px 18px;min-height:100vh;min-height:100svh;background:radial-gradient(ellipse at 50% 34%,rgba(55,83,128,.72),transparent 56%),radial-gradient(circle at 18% 18%,rgba(226,191,119,.13),transparent 19%),radial-gradient(circle at 84% 78%,rgba(226,191,119,.1),transparent 21%),linear-gradient(145deg,#142c53,#0c1b35 74%);will-change:opacity,transform;transition:opacity .72s ease .08s,transform .92s cubic-bezier(.22,.75,.25,1)}
 .pc::before{inset:14px;border:1px solid rgba(222,193,137,.7);opacity:1}
-.open .pl{transform:rotateY(-118deg)}.open .pr{transform:rotateY(118deg)}
-.open .pc{opacity:0;transform:scale(1.04)}
+.open .pl{transform:translateX(-105%) rotateY(-12deg)}.open .pr{transform:translateX(105%) rotateY(12deg)}
+.open .pc{opacity:0;transform:scale(.96) translateY(-12px)}
 .side{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(180deg);writing-mode:vertical-rl;font-family:var(--script);font-size:clamp(22px,4.5vw,40px);white-space:nowrap;z-index:3}
 .pr .side{transform:translate(-50%,-50%)}
 .cin{position:relative;z-index:3;width:min(100%,440px);padding:clamp(26px,6vh,54px) 22px;transition:opacity .7s ease}
@@ -71,7 +71,9 @@ body.locked{overflow:hidden;height:100vh;height:100svh}
 .cor.c{bottom:26px;left:26px;border-width:0 0 1px 1px}.cor.d{bottom:26px;right:26px;border-width:0 1px 1px 0}
 
 /* ===== ISI ===== */
-main{position:relative}
+main{position:relative;transition:opacity .82s ease,transform .92s cubic-bezier(.22,.75,.25,1)}
+body.locked main{opacity:.82;transform:scale(.985)}
+body.open main{opacity:1;transform:scale(1)}
 .s{position:relative;min-height:100vh;min-height:100svh;padding:72px 24px;text-align:center;overflow:hidden;background:var(--w);display:flex;align-items:center;justify-content:center}
 .s.alt{background:radial-gradient(ellipse at 15% 15%,var(--alt-glow),transparent 44%),radial-gradient(ellipse at 88% 82%,var(--alt-tint),transparent 48%),var(--w2)}
 :root:not([data-theme="dark"]) .s::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 12% 24%,rgba(56,105,171,.2) 0,rgba(56,105,171,.09) 20px,transparent 58px),radial-gradient(circle at 82% 19%,rgba(71,122,188,.18) 0,rgba(71,122,188,.08) 24px,transparent 68px),radial-gradient(circle at 23% 78%,rgba(56,105,171,.16) 0,rgba(56,105,171,.07) 18px,transparent 54px),radial-gradient(circle at 76% 74%,rgba(71,122,188,.17) 0,rgba(71,122,188,.07) 22px,transparent 62px);filter:blur(12px);opacity:.85;animation:blue-particles 14s ease-in-out infinite alternate}
@@ -317,9 +319,9 @@ $("#openBtn").onclick=()=>{
  if(C.music)playMusic();
  document.body.classList.add("open");
  const reducedMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
- const coverDuration=reducedMotion?50:1900;
+ const coverDuration=reducedMotion?50:950;
  setTimeout(()=>{document.body.classList.remove("locked");scrollTo(0,0)},coverDuration);
- setTimeout(()=>{$("#cover").style.display="none";document.querySelectorAll(".pl,.pr,.pc").forEach(e=>e.style.willChange="auto")},coverDuration+200);
+ setTimeout(()=>{$("#cover").style.display="none";document.querySelectorAll(".pl,.pr,.pc").forEach(e=>e.style.willChange="auto")},coverDuration+100);
 };
 if(C.music)$("#mus").style.display="block";
 
