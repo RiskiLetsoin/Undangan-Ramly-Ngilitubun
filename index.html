@@ -72,6 +72,8 @@ body.locked{overflow:hidden;height:100vh;height:100svh}
 main{position:relative}
 .s{position:relative;min-height:100vh;min-height:100svh;padding:72px 24px;text-align:center;overflow:hidden;background:var(--w);display:flex;align-items:center;justify-content:center}
 .s.alt{background:radial-gradient(ellipse at 15% 15%,var(--alt-glow),transparent 44%),radial-gradient(ellipse at 88% 82%,var(--alt-tint),transparent 48%),var(--w2)}
+:root:not([data-theme="dark"]) .s::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 12% 24%,rgba(56,105,171,.2) 0,rgba(56,105,171,.09) 20px,transparent 58px),radial-gradient(circle at 82% 19%,rgba(71,122,188,.18) 0,rgba(71,122,188,.08) 24px,transparent 68px),radial-gradient(circle at 23% 78%,rgba(56,105,171,.16) 0,rgba(56,105,171,.07) 18px,transparent 54px),radial-gradient(circle at 76% 74%,rgba(71,122,188,.17) 0,rgba(71,122,188,.07) 22px,transparent 62px);filter:blur(12px);opacity:.85;animation:blue-particles 14s ease-in-out infinite alternate}
+@keyframes blue-particles{from{transform:translate3d(-5px,4px,0) scale(.99)}to{transform:translate3d(7px,-6px,0) scale(1.02)}}
 .in{position:relative;z-index:2;max-width:760px;margin:0 auto}
 .hero{background:radial-gradient(ellipse at 50% 38%,var(--paper-highlight),var(--paper-shadow) 60%,var(--paper-edge))}
 .hero.tx::after{display:none}
@@ -92,8 +94,9 @@ main{position:relative}
 .dust{display:none}
 .dust i{position:absolute;bottom:-12px;border-radius:50%;background:radial-gradient(#e6c47a,#c9a45f);opacity:0;animation:fl linear infinite}
 @keyframes fl{10%{opacity:.85}100%{transform:translate(var(--x),-105vh);opacity:0}}
-.scroll{display:none}
-@keyframes sc{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.scroll-hint{position:absolute;z-index:2;bottom:22px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--navy);font:10px var(--sans);letter-spacing:.14em;text-decoration:none}
+.scroll-hint svg{width:20px;height:20px;fill:none;stroke:var(--gold);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;animation:scroll-nudge 1.8s ease-in-out infinite}
+@keyframes scroll-nudge{50%{transform:translateY(4px)}}
 h3{font-family:var(--script);font-weight:400;font-size:clamp(46px,11vw,68px);line-height:1.15;margin-bottom:16px}
 .orn{display:block;margin:0 auto 24px;width:200px;height:20px;color:var(--gold)}
 .photo-frame{width:100%;height:100%;border-radius:69px 69px 2px 2px;background:linear-gradient(160deg,var(--photo-start),var(--photo-end));display:grid;place-items:center;color:var(--navy);font-family:var(--script);font-size:76px;overflow:hidden;position:relative}
@@ -115,15 +118,21 @@ h3{font-family:var(--script);font-weight:400;font-size:clamp(46px,11vw,68px);lin
 .detail-location{color:var(--navy);text-decoration-color:var(--gold);text-underline-offset:4px}
 .detail-location:hover,.detail-location:focus-visible{text-decoration:underline}
 .detail-location:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
-.cd{display:flex;justify-content:center;gap:10px;margin:30px 0 14px}
-.cd div{width:min(21vw,104px);padding:18px 0 12px;background:#fff;border:1px solid rgba(184,146,79,.75);position:relative}
-.cd div::before{content:"";position:absolute;inset:4px;border:1px solid rgba(184,146,79,.25)}
-.cd b{display:block;font-size:clamp(34px,9vw,54px);font-weight:500;line-height:1;font-variant-numeric:tabular-nums;color:#7a5b24}
-.cd span{font-family:var(--sans);font-weight:300;font-size:12px;letter-spacing:.2em;color:var(--mut)}
-.cdm{font-style:italic;color:var(--mut)}
+.countdown-wrap{margin:18px auto 8px}
+.countdown-title{margin:0 0 8px!important;font:10px var(--sans)!important;letter-spacing:.18em;color:var(--mut)!important;text-transform:uppercase}
+.countdown{display:flex;justify-content:center;gap:clamp(12px,4vw,24px)}
+.countdown[hidden]{display:none}
+.count-unit{min-width:42px}
+.count-unit b{display:block;color:var(--navy);font:500 22px/1.1 var(--serif);font-variant-numeric:tabular-nums}
+.count-unit span{font:9px var(--sans);letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
+.countdown-ended{margin:14px auto!important;font:13px var(--sans)!important;color:var(--mut)!important}
 .end h3{font-size:clamp(48px,12vw,76px)}
 .end p{max-width:520px;margin:0 auto 24px;color:var(--mut)}
-footer{font-family:var(--sans);font-weight:300;font-size:12px;letter-spacing:.08em;color:var(--mut);margin-top:32px}
+footer{font-family:var(--sans);font-weight:300;font-size:12px;letter-spacing:.08em;line-height:1.9;white-space:pre-line;color:var(--mut);margin-top:24px}
+.design-credit{display:flex;align-items:center;justify-content:center;gap:5px;margin:12px auto 0!important;font:10px var(--sans)!important;letter-spacing:.06em;color:var(--mut)}
+.design-credit a{display:inline-flex;align-items:center;gap:4px;color:var(--navy);text-decoration:none}
+.design-credit a:hover,.design-credit a:focus-visible{text-decoration:underline;text-underline-offset:3px}
+.design-credit svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .rv{opacity:0;transform:translateY(26px);transition:opacity 1.3s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform 1.3s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
 .rv.in-v{opacity:1;transform:none}
 #mus{position:fixed;right:16px;bottom:16px;z-index:40;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:var(--w);color:var(--navy);cursor:pointer;display:none;font-size:18px}
@@ -148,6 +157,7 @@ footer{font-family:var(--sans);font-weight:300;font-size:12px;letter-spacing:.08
 :root[data-theme="dark"]{
 color-scheme:dark;--w:#171d29;--w2:#222b3b;--gold:#c5ab7c;--gold2:#e1cfa6;--ink:#edf1f8;--mut:#b5bfd0;--navy:#b1c8ec;
 --page-start:#111722;--page-end:#222b3b;--paper-highlight:#2c3545;--paper-shadow:#181f2c;--paper-edge:#293347;--frame-line:rgba(160,181,216,.55);--inner-frame:rgba(160,181,216,.27);--seal-frame:rgba(197,171,124,.45);--alt-glow:rgba(255,255,255,.04);--alt-tint:rgba(100,125,170,.16);--button-start:#243f69;--button-mid:#3b5f91;--photo-start:#2c3545;--photo-end:#1a2231}
+:root[data-theme="dark"] .s::before{display:none}
 .pl,.pr{box-shadow:inset 0 0 30px rgba(0,0,0,.2)}
 .frame::before{border-color:var(--inner-frame)}
 .info-card{box-shadow:0 16px 38px rgba(0,0,0,.18)}
@@ -198,9 +208,13 @@ color-scheme:dark;--w:#171d29;--w2:#222b3b;--gold:#c5ab7c;--gold2:#e1cfa6;--ink:
       <p class="dg rv" style="--d:.25s" data-b="univ"></p>
       <p class="dt rv" style="--d:.3s" data-b="dateLong"></p>
     </div>
+    <a class="scroll-hint" href="#details" aria-label="Gulir ke informasi wisuda">
+      <span>GULIR KE BAWAH</span>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v15m-6-6 6 6 6-6"/></svg>
+    </a>
   </section>
 
-  <section class="s alt tx details"><div class="frame"></div><div class="in">
+  <section class="s alt tx details" id="details"><div class="frame"></div><div class="in">
     <h3 class="rv">Informasi Wisuda</h3>
     <div class="info-card rv">
       <div class="info-item"><span class="info-icon"><svg aria-hidden="true"><use href="#calendar"/></svg></span><div><p class="detail-label">Tanggal</p><p class="detail-value" data-b="dateLong"></p></div></div>
@@ -213,8 +227,23 @@ color-scheme:dark;--w:#171d29;--w2:#222b3b;--gold:#c5ab7c;--gold2:#e1cfa6;--ink:
   <section class="s tx end"><div class="frame"></div><div class="in">
     <h3 class="rv">Kami Menantikan Kehadiran Anda</h3>
     <p class="rv">Merupakan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
-    <div class="rv"><a class="btn" id="rsvpY" target="_blank" rel="noopener">SAYA AKAN HADIR</a>&nbsp; <a class="btn o" id="rsvpN" target="_blank" rel="noopener">BELUM BISA HADIR</a></div>
+    <div class="countdown-wrap rv" id="countdownWrap">
+      <p class="countdown-title">Menuju Hari Wisuda</p>
+      <div class="countdown" id="countdown" role="timer" aria-label="Hitung mundur menuju wisuda">
+        <div class="count-unit"><b id="countDays">--</b><span>Hari</span></div>
+        <div class="count-unit"><b id="countHours">--</b><span>Jam</span></div>
+        <div class="count-unit"><b id="countMinutes">--</b><span>Menit</span></div>
+        <div class="count-unit"><b id="countSeconds">--</b><span>Detik</span></div>
+      </div>
+      <p class="countdown-ended" id="countdownEnded" hidden></p>
+    </div>
     <footer data-b="family"></footer>
+    <p class="design-credit">Desain
+      <a href="https://www.instagram.com/atefak_art?cplk=aWdkd290eTl4cHJ6" target="_blank" rel="noopener noreferrer" aria-label="Instagram @artefak_art">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r=".8" fill="currentColor"/></svg>
+        @artefak_art
+      </a>
+    </p>
   </div></section>
 </main>
 
@@ -241,9 +270,8 @@ const C={
   univ:"Universitas Doktor Husni Ingratubun Tual",
   gtag:"Wisuda Periode Tahun 2026",
   photo:"images/foto_ramly.jpeg",    // Foto yang sudah dikonfirmasi untuk undangan
-  family:"Dengan penuh cinta, Keluarga Besar Bapak M. Saleh Ngilitubun & Ibu Siti Sarah Rahanyamtel",
-  event:{when:"2026-11-12T09:00:00+09:00",time:"12.00 WIT",place:"Fiditan",address:"Kel. Ketsoblak, Pulau Dullah Selatan, Kota Tual, Maluku",map:"https://maps.app.goo.gl/xL9oU1mMDC1ZbwQv5"},
-  wa:"6281234567890",                     // nomor WhatsApp penerima RSVP (format 62...)
+  family:"Dengan penuh cinta, Keluarga Besar\nBapak M. Saleh Ngilitubun & Ibu Siti Sarah Rahanyamtel",
+  event:{when:"2026-11-12T09:00:00+09:00",time:"09.00 WIT",place:"Fiditan",address:"Kel. Ketsoblak, Pulau Dullah Selatan, Kota Tual, Maluku",map:"https://maps.app.goo.gl/xL9oU1mMDC1ZbwQv5"},
   music:"audio/audio.mp3",              // File MP3 terbaru
 };
 /* ============================================ */
@@ -293,10 +321,24 @@ if("IntersectionObserver" in window){
  document.querySelectorAll(".rv").forEach(e=>e.classList.add("in-v"));
 }
 
-/* RSVP lewat WhatsApp */
-const wa=t=>`https://wa.me/${C.wa}?text=${encodeURIComponent(t)}`;
-$("#rsvpY").href=wa(`Halo, saya ${guest}. Dengan senang hati saya akan hadir di wisuda ${C.nick}. Selamat dan terima kasih atas undangannya!`);
-$("#rsvpN").href=wa(`Halo, saya ${guest}. Mohon maaf, saya belum bisa hadir di wisuda ${C.nick}. Selamat atas kelulusannya, semoga sukses selalu!`);
+/* Hitung mundur menuju waktu acara */
+const countdownTimer=$("#countdown"),countdownEnded=$("#countdownEnded");
+function updateCountdown(){
+ const remaining=new Date(C.event.when).getTime()-Date.now();
+ if(remaining<=0){
+  countdownTimer.hidden=true;
+  countdownEnded.hidden=false;
+  countdownEnded.textContent=remaining> -3600000?"Acara wisuda sedang berlangsung":"Acara wisuda telah berlangsung";
+  return;
+ }
+ const seconds=Math.floor(remaining/1000);
+ $("#countDays").textContent=String(Math.floor(seconds/86400)).padStart(2,"0");
+ $("#countHours").textContent=String(Math.floor(seconds%86400/3600)).padStart(2,"0");
+ $("#countMinutes").textContent=String(Math.floor(seconds%3600/60)).padStart(2,"0");
+ $("#countSeconds").textContent=String(seconds%60).padStart(2,"0");
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
 
 /* Pembuat link tamu */
 const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)};
