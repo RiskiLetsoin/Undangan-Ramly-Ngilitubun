@@ -19,6 +19,7 @@
 <style>
 :root{color-scheme:light;--w:#f7f8fb;--w2:#e9edf4;--gold:#9a7951;--gold2:#d9c49b;--ink:#27364c;--mut:#68768c;--navy:#203b64;
 --page-start:#f8f8fb;--page-end:#e8edf5;--paper-highlight:#fff;--paper-shadow:#f7f8fb;--paper-edge:#e3e9f1;--frame-line:rgba(74,96,132,.42);--inner-frame:rgba(74,96,132,.2);--seal-frame:rgba(154,121,81,.45);--alt-glow:rgba(255,255,255,.72);--alt-tint:rgba(183,198,219,.34);--button-start:#203b64;--button-mid:#365783;--photo-start:#f6f7fa;--photo-end:#e3e9f1;
+--hero-start:#eaf0f8;--hero-mid:#f8f9fc;--hero-end:#e7edf6;--hero-blue-glow:rgba(92,126,180,.11);--hero-gold-glow:rgba(191,157,99,.12);--hero-bokeh-core:rgba(180,144,82,.25);--hero-bokeh-halo:rgba(180,144,82,.09);
 --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;--script:'Pinyon Script','Snell Roundhand',cursive}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -75,10 +76,10 @@ main{position:relative}
 :root:not([data-theme="dark"]) .s::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 12% 24%,rgba(56,105,171,.2) 0,rgba(56,105,171,.09) 20px,transparent 58px),radial-gradient(circle at 82% 19%,rgba(71,122,188,.18) 0,rgba(71,122,188,.08) 24px,transparent 68px),radial-gradient(circle at 23% 78%,rgba(56,105,171,.16) 0,rgba(56,105,171,.07) 18px,transparent 54px),radial-gradient(circle at 76% 74%,rgba(71,122,188,.17) 0,rgba(71,122,188,.07) 22px,transparent 62px);filter:blur(12px);opacity:.85;animation:blue-particles 14s ease-in-out infinite alternate}
 @keyframes blue-particles{from{transform:translate3d(-5px,4px,0) scale(.99)}to{transform:translate3d(7px,-6px,0) scale(1.02)}}
 .in{position:relative;z-index:2;max-width:760px;margin:0 auto}
-.hero{background:radial-gradient(ellipse at 50% 38%,var(--paper-highlight),var(--paper-shadow) 60%,var(--paper-edge))}
+.hero{background:radial-gradient(ellipse at 18% 18%,var(--hero-blue-glow),transparent 42%),radial-gradient(ellipse at 82% 76%,var(--hero-gold-glow),transparent 38%),linear-gradient(145deg,var(--hero-start),var(--hero-mid) 52%,var(--hero-end))}
 .hero.tx::after{display:none}
 .hero .gold-bokeh{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.gold-bokeh i{position:absolute;width:clamp(24px,6vw,78px);height:clamp(24px,6vw,78px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(218,187,120,.5),rgba(218,187,120,.18) 48%,transparent 72%);filter:blur(12px);opacity:.72;animation:bokeh 9s ease-in-out infinite alternate}
+.gold-bokeh i{position:absolute;width:clamp(24px,6vw,78px);height:clamp(24px,6vw,78px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,var(--hero-bokeh-core),var(--hero-bokeh-halo) 48%,transparent 72%);filter:blur(12px);opacity:.68;animation:bokeh 9s ease-in-out infinite alternate}
 .gold-bokeh i:nth-child(1){left:12%;top:20%;animation-delay:-2s}
 .gold-bokeh i:nth-child(2){right:12%;top:16%;width:clamp(32px,8vw,100px);animation-delay:-6s}
 .gold-bokeh i:nth-child(3){left:22%;bottom:16%;width:clamp(18px,4vw,54px);animation-delay:-4s}
@@ -128,6 +129,8 @@ h3{font-family:var(--script);font-weight:400;font-size:clamp(46px,11vw,68px);lin
 .countdown-ended{margin:14px auto!important;font:13px var(--sans)!important;color:var(--mut)!important}
 .end h3{font-size:clamp(48px,12vw,76px)}
 .end p{max-width:520px;margin:0 auto 24px;color:var(--mut)}
+.end{padding-bottom:88px}
+.end .design-credit{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 48px);margin:0!important}
 footer{font-family:var(--sans);font-weight:300;font-size:12px;letter-spacing:.08em;line-height:1.9;white-space:pre-line;color:var(--mut);margin-top:24px}
 .design-credit{display:flex;align-items:center;justify-content:center;gap:5px;margin:12px auto 0!important;font:10px var(--sans)!important;letter-spacing:.06em;color:var(--mut)}
 .design-credit a{display:inline-flex;align-items:center;gap:4px;color:var(--navy);text-decoration:none}
@@ -156,7 +159,8 @@ footer{font-family:var(--sans);font-weight:300;font-size:12px;letter-spacing:.08
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}.rv{opacity:1;transform:none}}
 :root[data-theme="dark"]{
 color-scheme:dark;--w:#171d29;--w2:#222b3b;--gold:#c5ab7c;--gold2:#e1cfa6;--ink:#edf1f8;--mut:#b5bfd0;--navy:#b1c8ec;
---page-start:#111722;--page-end:#222b3b;--paper-highlight:#2c3545;--paper-shadow:#181f2c;--paper-edge:#293347;--frame-line:rgba(160,181,216,.55);--inner-frame:rgba(160,181,216,.27);--seal-frame:rgba(197,171,124,.45);--alt-glow:rgba(255,255,255,.04);--alt-tint:rgba(100,125,170,.16);--button-start:#243f69;--button-mid:#3b5f91;--photo-start:#2c3545;--photo-end:#1a2231}
+--page-start:#111722;--page-end:#222b3b;--paper-highlight:#2c3545;--paper-shadow:#181f2c;--paper-edge:#293347;--frame-line:rgba(160,181,216,.55);--inner-frame:rgba(160,181,216,.27);--seal-frame:rgba(197,171,124,.45);--alt-glow:rgba(255,255,255,.04);--alt-tint:rgba(100,125,170,.16);--button-start:#243f69;--button-mid:#3b5f91;--photo-start:#2c3545;--photo-end:#1a2231;
+--hero-start:#1b2638;--hero-mid:#202b3d;--hero-end:#172131;--hero-blue-glow:rgba(101,137,190,.13);--hero-gold-glow:rgba(190,159,104,.11);--hero-bokeh-core:rgba(220,190,126,.23);--hero-bokeh-halo:rgba(220,190,126,.08)}
 :root[data-theme="dark"] .s::before{display:none}
 .pl,.pr{box-shadow:inset 0 0 30px rgba(0,0,0,.2)}
 .frame::before{border-color:var(--inner-frame)}
@@ -238,13 +242,14 @@ color-scheme:dark;--w:#171d29;--w2:#222b3b;--gold:#c5ab7c;--gold2:#e1cfa6;--ink:
       <p class="countdown-ended" id="countdownEnded" hidden></p>
     </div>
     <footer data-b="family"></footer>
+  </div>
     <p class="design-credit">Desain
       <a href="https://www.instagram.com/atefak_art?cplk=aWdkd290eTl4cHJ6" target="_blank" rel="noopener noreferrer" aria-label="Instagram @artefak_art">
         <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r=".8" fill="currentColor"/></svg>
         @artefak_art
       </a>
     </p>
-  </div></section>
+  </section>
 </main>
 
 <button id="themeToggle" type="button" aria-pressed="false"><svg aria-hidden="true"><use id="themeIcon" href="#sun"/></svg><span id="themeLabel">Terang</span></button>
